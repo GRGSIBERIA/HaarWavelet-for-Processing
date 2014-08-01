@@ -5,8 +5,6 @@ import ddf.minim.analysis.*;
 import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
 
-
-
 class Wavelet {
   float weight, difference;
   
