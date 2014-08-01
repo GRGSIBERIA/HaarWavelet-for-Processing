@@ -55,6 +55,14 @@ class Scale {
       wavelets[i] = new Wavelet(soundBuffer[i]);
     }
   }
+  
+  float Average() {
+    float sum = 0;
+    for (int i = 0; i < size; i++) {
+      sum += wavelets[i].weight;
+    }
+    return sum / size;
+  }
 }
 
 class HaarWavelet {
@@ -119,6 +127,15 @@ void DrawScale(Scale scale, int numberOfScales) {
   }
 }
 
+int clap = 0;
+void ClapHands() {
+  float avg = haar.scales[4].Average();
+  if (avg > 0.1) {
+    print("clap");
+    clap = 1;
+  }
+}
+
 void draw() {
   float[] audioBuffer = audioInput.mix.toArray();
   HaarWavelet haar = new HaarWavelet(audioBuffer, 1);
@@ -127,6 +144,8 @@ void draw() {
   for (int i = 0; i < haar.numberOfScales; i++) {
     DrawScale(haar.scales[i], haar.numberOfScales);
   }
+  
+  ClapHands();
 }
 
 void stop() {
