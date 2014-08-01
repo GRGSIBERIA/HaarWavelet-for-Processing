@@ -121,18 +121,27 @@ void DrawScale(Scale scale, int numberOfScales) {
   float wdiff = width / scale.size;
   stroke(255);
   for (int i = 0; i < scale.size; i++) {
-     float w = wdiff * i;
-     float h = hdiff * scale.scaleNumber + scale.wavelets[i].weight * hdiff;
-     point(w, h);
+     float w1 = wdiff * i;
+     float w2 = wdiff * (i + 1);
+     float h1 = hdiff * scale.scaleNumber + scale.wavelets[i].weight * hdiff;
+     float h2 = hdiff * scale.scaleNumber;
+     line(w1, h1, w2, h1);
   }
 }
 
+int clapCount = 0;
 int clap = 0;
-void ClapHands() {
+void ClapHands(HaarWavelet haar) {
   float avg = haar.scales[4].Average();
-  if (avg > 0.1) {
-    print("clap");
-    clap = 1;
+  if (avg > 0.05) {
+    if (clap == 0) {
+      clap = 1;
+      clapCount++;
+      println(clapCount);
+    }
+  }
+  else {
+    clap = 0;
   }
 }
 
@@ -145,7 +154,7 @@ void draw() {
     DrawScale(haar.scales[i], haar.numberOfScales);
   }
   
-  ClapHands();
+  ClapHands(haar);
 }
 
 void stop() {
