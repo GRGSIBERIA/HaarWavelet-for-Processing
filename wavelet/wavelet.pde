@@ -110,7 +110,7 @@ AudioInput audioInput;
 
 void setup() {
   size(512, 512);
-  frameRate(120);
+  frameRate(10);
   
   minim = new Minim(this);
   audioInput = minim.getLineIn(Minim.STEREO, 512);
@@ -119,13 +119,14 @@ void setup() {
 void DrawScale(Scale scale, int numberOfScales) {
   float hdiff = (height / numberOfScales);
   float wdiff = width / scale.size;
-  stroke(255);
+  colorMode(HSB, 255);
   for (int i = 0; i < scale.size; i++) {
      float w1 = wdiff * i;
      float w2 = wdiff * (i + 1);
-     float h1 = hdiff * scale.scaleNumber + scale.wavelets[i].weight * hdiff;
-     float h2 = hdiff * scale.scaleNumber;
-     line(w1, h1, w2, h1);
+     float h2 = hdiff * scale.scaleNumber + scale.wavelets[i].weight * hdiff;
+     float h1 = hdiff * scale.scaleNumber;
+     stroke(scale.wavelets[i].weight * 255 * 2, 255, 255);
+     line(w1, h1, w2, h2);
   }
 }
 
