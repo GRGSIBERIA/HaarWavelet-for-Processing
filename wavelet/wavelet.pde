@@ -110,10 +110,10 @@ AudioInput audioInput;
 
 void setup() {
   size(512, 512);
-  frameRate(10);
+  frameRate(120);
   
   minim = new Minim(this);
-  audioInput = minim.getLineIn(Minim.STEREO, 512);
+  audioInput = minim.getLineIn(Minim.STEREO, 32768);
 }
 
 void DrawScale(Scale scale, int numberOfScales) {
